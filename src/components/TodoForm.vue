@@ -53,10 +53,10 @@
           </select>
         </div>
         <div class="flex-1 min-w-[160px]">
-          <label for="dueDate" class="block text-sm text-gray-600 mb-1">截止日期</label>
+          <label for="dueDate" class="block text-sm text-gray-600 mb-1">截止时间</label>
           <input
             id="dueDate"
-            type="date"
+            type="datetime-local"
             v-model="form.dueDate"
             class="w-full px-2.5 py-2 rounded-lg border border-gray-300 text-sm outline-none transition-all bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white"
           />

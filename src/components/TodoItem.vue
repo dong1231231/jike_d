@@ -39,7 +39,7 @@
             v-if="todo.dueDate"
             class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs bg-blue-50 text-blue-700"
           >
-            截止 {{ todo.dueDate }}
+          截止 {{ formatDateTime(todo.dueDate) }}
           </span>
           <span
             class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs bg-gray-100 text-gray-600"
@@ -86,7 +86,7 @@
             </select>
             <input
               v-model="draft.dueDate"
-              type="date"
+              type="datetime-local"
               class="flex-1 min-w-[140px] px-2.5 py-2 rounded-lg border border-gray-300 text-sm outline-none transition-all bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white"
             />
           </div>
@@ -220,6 +220,22 @@ function priorityLabel(value) {
 
 function formatCreatedAt(ts) {
   const d = new Date(ts)
+  const dateStr = [
+    d.getFullYear(),
+    String(d.getMonth() + 1).padStart(2, '0'),
+    String(d.getDate()).padStart(2, '0'),
+  ].join('-')
+  const timeStr = [
+    String(d.getHours()).padStart(2, '0'),
+    String(d.getMinutes()).padStart(2, '0'),
+  ].join(':')
+  return dateStr + ' ' + timeStr
+}
+
+function formatDateTime(str) {
+  if (!str) return ''
+  const d = new Date(str)
+  if (Number.isNaN(d.getTime())) return str
   const dateStr = [
     d.getFullYear(),
     String(d.getMonth() + 1).padStart(2, '0'),
