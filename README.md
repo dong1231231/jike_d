@@ -1,103 +1,75 @@
-# TODO List 应用 - Vue 3 实现
+# TODO List 项目说明文档
 
-根据 [iftechio/coding-challenge-2025](https://github.com/iftechio/coding-challenge-2025) 要求实现的前端 TODO List 应用。
+## 1. 技术选型
+- **编程语言**：JavaScript，理由：前端生态成熟、上手快。  
+- **框架/库**：Vue 3 (Composition API) + Vite，理由：轻量、热更新快、组件化清晰。  
+- **样式**：Tailwind CSS，理由：原子化类快速迭代样式。  
+- **数据库/存储**：浏览器 `localStorage`，理由：前端单页应用，无需服务端即可持久化，易用轻量。  
 
-## 技术栈
 
-- **Vue 3** (Composition API)
-- **Vite** (构建工具)
-- **原生 CSS** (样式)
+## 2. 项目结构设计
+- 整体架构：纯前端 SPA，数据存于浏览器本地；无后端接口。  
+- 目录结构（主要文件）：  
+  ```
+  src/
+    App.vue              # 根组件，管理状态、提醒逻辑
+    components/
+      TodoForm.vue       # 新增任务表单
+      TodoList.vue       # 列表、筛选、排序
+      TodoItem.vue       # 任务项，支持编辑/删除/完成
+    utils/
+      storage.js         # localStorage 读写封装
+    style.css            # Tailwind 引入
+  ```
+- 模块职责：
+  - `App.vue`：加载/保存任务、提醒轮询、全局 toast。  
+  - `TodoForm.vue`：新增任务，含标题/描述/分类/优先级/截止时间（到分钟）。  
+  - `TodoList.vue`：搜索、状态过滤、排序。  
+  - `TodoItem.vue`：单项展示、完成/删除、内联编辑（含截止时间编辑）。  
+  - `storage.js`：`loadTodos` / `saveTodos` 封装键名 `iftechio_todos_v1`。  
 
-## 功能实现
+## 3. 需求细节与决策
+- 标题必填，空标题提交会提示并阻止提交；描述可选。  
+- 已完成任务：标题展示删除线，完成后不再触发提醒。  
+- 排序：默认按创建时间新→旧；可选旧→新/按优先级/按截止时间。  
+- 搜索与过滤：支持标题/描述关键词搜索；筛选全部/未完成/已完成。  
+- 扩展功能：  
+  - **截止时间**：使用 `datetime-local` 精确到分钟。  
+  - **提醒**：到期前 2 小时弹出确认对话框，需点击“我知道了”才标记已提醒；单个任务只提醒一次，修改截止时间会重置提醒。  
+  - **编辑**：列表内联编辑标题/描述/分类/优先级/截止时间；保存后有 toast。  
 
-### 必须完成的功能 ✅
+## 4. AI 使用说明
+- 使用的工具：Cursor。  
+- 使用环节：  
+  - 生成基础组件代码、Tailwind 样式思路。  
+  - 提醒逻辑与本地存储封装的实现草稿。     
+  - 调整为 Vue 3 + Tailwind 的组件化实现。  
+  - 保留 localStorage 以符合前端单页要求并简化部署。  
 
-1. ✅ 添加待办事项（包含标题，描述可选）
-2. ✅ 删除待办事项
-3. ✅ 标记待办事项完成/未完成
-4. ✅ 查看待办事项列表
+## 5. 运行与测试方式
+- 本地运行：  
+  ```bash
+  npm install
+  npm run dev
+  ```
+  打开控制台提示的地址（默认 `http://localhost:5173/`）。  
+- 构建：  
+  ```bash
+  npm run build
+  npm run preview
+  ```
+- 测试环境：Node.js v20，Vite 5，Chrome/Edge 最新版。  
+- 已知问题与不足：  
+  - 纯前端存储，换设备/换浏览器不会同步。  
+  - 浏览器标签长期后台可能延迟定时器，已在回到前台时补跑检查，但极端休眠场景仍可能延迟提醒。    
 
-### 基础扩展功能 ✅
-
-1. ✅ 数据持久化（使用浏览器 localStorage）
-2. ✅ 任务分类（工作/学习/生活）
-3. ✅ 任务排序（按创建时间、优先级、截止日期）
-
-### 进阶挑战功能 ✅
-
-- ✅ 搜索功能（按标题或描述关键字搜索）
-- ✅ 状态过滤（全部/未完成/已完成）
-
-## 项目结构
-
-```
-.
-├── index.html          # 入口 HTML
-├── package.json        # 项目配置
-├── vite.config.js      # Vite 配置
-├── src/
-│   ├── main.js         # 应用入口
-│   ├── App.vue         # 根组件
-│   ├── style.css       # 全局样式
-│   ├── components/     # 组件目录
-│   │   ├── TodoForm.vue    # 任务表单组件
-│   │   ├── TodoList.vue    # 任务列表组件
-│   │   └── TodoItem.vue    # 任务项组件
-│   └── utils/          # 工具函数
-│       └── storage.js      # 本地存储工具
-└── README.md           # 项目说明
-```
-
-## 运行方式
-
-### 1. 安装依赖
-
-```bash
-npm install
-```
-
-或使用其他包管理器：
-
-```bash
-pnpm install
-# 或
-yarn install
-```
-
-### 2. 启动开发服务器
-
-```bash
-npm run dev
-```
-
-启动后，在浏览器中访问控制台显示的本地地址（通常是 `http://localhost:5173`）。
-
-### 3. 构建生产版本
-
-```bash
-npm run build
-```
-
-构建产物将输出到 `dist` 目录。
-
-### 4. 预览生产构建
-
-```bash
-npm run preview
-```
-
-## 组件说明
-
-- **App.vue**: 根组件，管理全局状态（todos 列表）
-- **TodoForm.vue**: 任务表单组件，处理新增任务
-- **TodoList.vue**: 任务列表组件，处理搜索、过滤、排序
-- **TodoItem.vue**: 单个任务项组件，展示任务详情
-
-## 数据存储
-
-所有数据保存在浏览器的 `localStorage` 中，键名为 `iftechio_todos_v1`。刷新页面后数据不会丢失。
-
-## 开发说明
-
-本项目使用 Vue 3 的 Composition API 和 `<script setup>` 语法，代码结构清晰，易于维护和扩展。
+## 6. 总结与反思
+- 如果有更多时间：  
+  - 支持浏览器通知（Notifications API）并请求权限。  
+  - 增加数据导出/导入，或接入后端同步。  
+  - 做移动端适配与键盘无障碍支持。  
+- 亮点：  
+  - 组件化清晰，功能覆盖：新增/编辑/删除/完成、搜索、过滤、排序、截止时间、提醒。  
+  - 提醒需确认，避免误触并防止重复提醒；修改截止时间自动重置提醒状态。  
+  - 纯前端零依赖后端，启动与部署成本低。  
 
