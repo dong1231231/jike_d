@@ -1,52 +1,77 @@
 <template>
-  <section class="card">
-    <h2 class="card-title">新增任务</h2>
-    <form class="todo-form" @submit.prevent="handleSubmit" @reset="handleReset">
-      <div class="form-row">
-        <label for="title">标题 *</label>
+  <section class="bg-white rounded-2xl p-5 shadow-lg border border-slate-200 mb-4">
+    <h2 class="text-lg font-semibold mb-3">新增任务</h2>
+    <form class="flex flex-col gap-2.5" @submit.prevent="handleSubmit" @reset="handleReset">
+      <div class="w-full">
+        <label for="title" class="block text-sm text-gray-600 mb-1">标题 *</label>
         <input
           id="title"
           v-model.trim="form.title"
           type="text"
           placeholder="例如：完成技术笔试题"
           required
+          class="w-full px-2.5 py-2 rounded-lg border border-gray-300 text-sm outline-none transition-all bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white"
         />
       </div>
-      <div class="form-row">
-        <label for="description">描述（可选）</label>
+      <div class="w-full">
+        <label for="description" class="block text-sm text-gray-600 mb-1">描述（可选）</label>
         <textarea
           id="description"
           v-model.trim="form.description"
           rows="2"
           placeholder="例如：实现 TODO List 前端并写 README"
+          class="w-full px-2.5 py-2 rounded-lg border border-gray-300 text-sm outline-none transition-all bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white resize-none"
         ></textarea>
       </div>
-      <div class="form-row">
-        <label for="category">分类（可选）</label>
-        <select id="category" v-model="form.category">
+      <div class="w-full">
+        <label for="category" class="block text-sm text-gray-600 mb-1">分类（可选）</label>
+        <select
+          id="category"
+          v-model="form.category"
+          class="w-full px-2.5 py-2 rounded-lg border border-gray-300 text-sm outline-none transition-all bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white"
+        >
           <option value="">未分类</option>
           <option value="work">工作</option>
           <option value="study">学习</option>
           <option value="life">生活</option>
         </select>
       </div>
-      <div class="form-row form-row-inline">
-        <div class="form-row">
-          <label for="priority">优先级</label>
-          <select id="priority" v-model="form.priority">
+      <div class="flex gap-2 flex-wrap">
+        <div class="flex-1 min-w-[160px]">
+          <label for="priority" class="block text-sm text-gray-600 mb-1">优先级</label>
+          <select
+            id="priority"
+            v-model="form.priority"
+            class="w-full px-2.5 py-2 rounded-lg border border-gray-300 text-sm outline-none transition-all bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white"
+          >
             <option value="medium">中</option>
             <option value="high">高</option>
             <option value="low">低</option>
           </select>
         </div>
-        <div class="form-row">
-          <label for="dueDate">截止日期</label>
-          <input id="dueDate" type="date" v-model="form.dueDate" />
+        <div class="flex-1 min-w-[160px]">
+          <label for="dueDate" class="block text-sm text-gray-600 mb-1">截止日期</label>
+          <input
+            id="dueDate"
+            type="date"
+            v-model="form.dueDate"
+            class="w-full px-2.5 py-2 rounded-lg border border-gray-300 text-sm outline-none transition-all bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white"
+          />
         </div>
       </div>
-      <div class="form-actions">
-        <button type="submit" class="btn primary">添加任务</button>
-        <button type="reset" class="btn ghost">清空</button>
+      <div class="flex justify-end gap-2 mt-1">
+        <button
+          type="submit"
+          class="px-4 py-2 rounded-full text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-indigo-500 shadow-lg shadow-indigo-500/30 hover:from-indigo-700 hover:to-indigo-600 hover:-translate-y-0.5 transition-all cursor-pointer"
+        >
+          添加任务
+        </button>
+        <button
+          type="reset"
+          class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 bg-gray-50 border border-gray-200 hover:bg-gray-100 transition-all cursor-pointer"
+        >
+          清空
+        </button>
       </div>
     </form>
   </section>
@@ -95,4 +120,3 @@ function handleReset() {
   form.dueDate = ''
 }
 </script>
-

@@ -1,19 +1,26 @@
 <template>
-  <section class="card">
-    <div class="card-header">
-      <h2 class="card-title">任务列表</h2>
-      <div class="toolbar">
+  <section class="bg-white rounded-2xl p-5 shadow-lg border border-slate-200 mb-4">
+    <div class="flex justify-between items-center gap-3 mb-3">
+      <h2 class="text-lg font-semibold">任务列表</h2>
+      <div class="flex flex-wrap gap-2">
         <input
           type="search"
           placeholder="搜索标题或描述..."
           v-model.trim="search"
+          class="px-2.5 py-2 rounded-lg border border-gray-300 text-sm outline-none transition-all bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white min-w-[180px]"
         />
-        <select v-model="filterStatus">
+        <select
+          v-model="filterStatus"
+          class="px-2.5 py-2 rounded-lg border border-gray-300 text-sm outline-none transition-all bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white"
+        >
           <option value="all">全部</option>
           <option value="active">未完成</option>
           <option value="completed">已完成</option>
         </select>
-        <select v-model="sortBy">
+        <select
+          v-model="sortBy"
+          class="px-2.5 py-2 rounded-lg border border-gray-300 text-sm outline-none transition-all bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white"
+        >
           <option value="createdAtDesc">按创建时间（新→旧）</option>
           <option value="createdAtAsc">按创建时间（旧→新）</option>
           <option value="priority">按优先级</option>
@@ -21,10 +28,10 @@
         </select>
       </div>
     </div>
-    <div class="empty-state" v-if="!visibleTodos.length">
+    <div v-if="!visibleTodos.length" class="py-3 px-2.5 text-sm text-gray-400">
       还没有任务，先在上方添加一个吧。
     </div>
-    <ul class="todo-list" v-else>
+    <ul v-else class="flex flex-col gap-2 list-none">
       <TodoItem
         v-for="todo in visibleTodos"
         :key="todo.id"
@@ -89,7 +96,6 @@ const visibleTodos = computed(() => {
       if (!b.dueDate) return -1
       return a.dueDate.localeCompare(b.dueDate)
     }
-    return 0
   })
 
   return result
@@ -103,4 +109,3 @@ function handleRemoveTodo(id) {
   emit('remove-todo', id)
 }
 </script>
-

@@ -1,22 +1,24 @@
 <template>
-  <div class="app">
-    <header class="app-header">
-      <h1>TODO List</h1>
-    </header>
+  <div class="min-h-screen bg-gradient-to-br from-indigo-50 to-gray-50">
+    <div class="max-w-4xl mx-auto px-4 py-6 pb-10">
+      <header class="text-center mb-6">
+        <h1 class="text-3xl font-bold mb-1">TODO List</h1>
+      </header>
 
-    <TodoForm @add-todo="handleAddTodo" />
+      <TodoForm @add-todo="handleAddTodo" />
 
-    <TodoList
-      :todos="todos"
-      @toggle-completed="handleToggleCompleted"
-      @remove-todo="handleRemoveTodo"
-    />
+      <TodoList
+        :todos="todos"
+        @toggle-completed="handleToggleCompleted"
+        @remove-todo="handleRemoveTodo"
+      />
 
-    <footer class="app-footer">
-      <small>
-        本项目仅实现前端逻辑，数据保存在浏览器本地存储（localStorage）中。
-      </small>
-    </footer>
+      <footer class="mt-4 text-center text-sm text-gray-500">
+        <small>
+          本项目仅实现前端逻辑，数据保存在浏览器本地存储（localStorage）中。
+        </small>
+      </footer>
+    </div>
   </div>
 </template>
 
@@ -55,4 +57,3 @@ function handleRemoveTodo(id) {
   todos.value = todos.value.filter((t) => t.id !== id)
 }
 </script>
-
