@@ -3,12 +3,15 @@
     <h2 class="text-lg font-semibold mb-3">新增任务</h2>
     <form class="flex flex-col gap-2.5" @submit.prevent="handleSubmit" @reset="handleReset">
       <div class="w-full">
-        <label for="title" class="block text-sm text-gray-600 mb-1">标题 *</label>
+        <label for="title" class="block text-sm text-gray-600 mb-1">
+          标题
+          <span class="text-red-500">*</span>
+        </label>
         <input
           id="title"
           v-model.trim="form.title"
           type="text"
-          placeholder="例如：完成技术笔试题"
+          placeholder="例如：考研"
           required
           class="w-full px-2.5 py-2 rounded-lg border border-gray-300 text-sm outline-none transition-all bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white"
         />
@@ -19,7 +22,7 @@
           id="description"
           v-model.trim="form.description"
           rows="2"
-          placeholder="例如：实现 TODO List 前端并写 README"
+          placeholder="例如：准备准考证、身份证、笔"
           class="w-full px-2.5 py-2 rounded-lg border border-gray-300 text-sm outline-none transition-all bg-gray-50 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:bg-white resize-none"
         ></textarea>
       </div>

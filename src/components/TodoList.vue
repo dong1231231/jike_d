@@ -38,6 +38,7 @@
         :todo="todo"
         @toggle-completed="handleToggleCompleted"
         @remove-todo="handleRemoveTodo"
+        @update-todo="handleUpdateTodo"
       />
     </ul>
   </section>
@@ -54,7 +55,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['toggle-completed', 'remove-todo'])
+const emit = defineEmits(['toggle-completed', 'remove-todo', 'update-todo'])
 
 const search = ref('')
 const filterStatus = ref('all')
@@ -107,5 +108,9 @@ function handleToggleCompleted(id) {
 
 function handleRemoveTodo(id) {
   emit('remove-todo', id)
+}
+
+function handleUpdateTodo(payload) {
+  emit('update-todo', payload)
 }
 </script>

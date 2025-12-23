@@ -11,6 +11,7 @@
         :todos="todos"
         @toggle-completed="handleToggleCompleted"
         @remove-todo="handleRemoveTodo"
+        @update-todo="handleUpdateTodo"
       />
 
       <footer class="mt-4 text-center text-sm text-gray-500">
@@ -55,5 +56,15 @@ function handleToggleCompleted(id) {
 
 function handleRemoveTodo(id) {
   todos.value = todos.value.filter((t) => t.id !== id)
+}
+
+function handleUpdateTodo(payload) {
+  const idx = todos.value.findIndex((t) => t.id === payload.id)
+  if (idx !== -1) {
+    todos.value[idx] = {
+      ...todos.value[idx],
+      ...payload,
+    }
+  }
 }
 </script>
