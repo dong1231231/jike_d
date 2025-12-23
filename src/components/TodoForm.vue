@@ -107,6 +107,7 @@ function handleSubmit() {
     category: form.category,
     priority: form.priority || 'medium',
     dueDate: form.dueDate || null,
+    reminded: false,
     completed: false,
     createdAt: now,
   }
